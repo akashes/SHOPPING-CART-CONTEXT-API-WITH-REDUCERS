@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import Filter from "./Filter";
 import Rating from "./Rating";
+import { useCart } from "../context/Context";
 
-const FilterOptions = ({ open,filters,setFilters }) => {
-//   const [filters, setFilters] = useState({
-//     sort: "",
-//     outOfStock: false,
-//     fastDelivery: false,
-//     rating: 0,
-//   });
-  const setRating=(rating)=>{
-    setFilters((prevFilters) => ({ ...prevFilters, rating }));
-  }
+const FilterOptions = (
+    // { open,filters,setFilters }
+) => {
+    // const{state,dispatch} = useCart()
+    const {productState,productDispatch}=useCart()
+    console.log(productState)
+     const [filters, setFilters] = useState(
+        {
+              sort: "",
+              inStock: false,
+              fastDelivery: false,
+              rating: 0,
+            }
+        );
+
+ 
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -20,10 +27,15 @@ const FilterOptions = ({ open,filters,setFilters }) => {
       [name]: type === "checkbox" ? checked : value,
     };
     setFilters(newFilters);
-    // onFilterChange(newFilters); 
-    // Call parent function to apply filters
+  
+
   };
   useEffect(()=>{
+      dispatch({
+        type:'APPLY_FILTERS',
+        payload:filters
+
+    },)
 
 
   },[filters])

@@ -16,10 +16,12 @@ const Product = ({product}) => {
             e.stopPropagation()
             dispatch({type:'REMOVE_FROM_CART',payload:product.id})
           }}  className='bg-red-500 text-white py-2 px-4 rounded-md'>Remove from Cart</button>
-          :<button onClick={(e)=>{
+          :<button 
+          disabled={product.inStock===0}
+          onClick={(e)=>{
             e.stopPropagation()
             dispatch({type:'ADD_TO_CART',payload:product})
-          }}  className='bg-blue-500 text-white py-2 px-4 rounded-md'>Add to Cart</button>
+          }}  className={` ${product.inStock>0?"bg-blue-500":"bg-slate-500 opacity-80"} text-white py-2 px-4 rounded-md`}> {product.inStock>0 ?"Add to Cart":"Out Of Stock"} </button>
         }
       </div>
   )

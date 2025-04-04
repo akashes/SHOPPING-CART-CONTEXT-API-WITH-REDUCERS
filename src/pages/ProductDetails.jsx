@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCart } from '../context/Context'
+import { GoStar, GoStarFill } from 'react-icons/go'
 
 
 const ProductDetails = () => {
+const {state,dispatch} = useCart()
     const[product,setProduct] = useState({})
     const navigate = useNavigate()
     const {id}=useParams()
-    const {state} = useCart()
+    
     useEffect(()=>{
         const res =  state.products.find(p=>p.id===id)
         setProduct(res)
@@ -48,18 +50,32 @@ console.log(product)
         {product.inStock ? "In Stock" : "Out of Stock"}
       </p>
       {product.fastDelivery && <p className="text-blue-500 text-sm">Fast Delivery Available</p>}
+        <div className='flex '>
+                    {
+                      [...Array(5)].map((_,i)=>{
+                        return product.ratings>i ? <GoStarFill className='text-yellow-500' /> : <GoStar className='text-gray-400'/>
+                      })
+                    }
+                  </div>
       {/* <p className="mt-4 text-gray-600">{product.description}</p> */}
 
       <div className="mt-6 flex space-x-4">
-        <button
-        //   onClick={addToCart}
-          className={`px-4 py-2 text-white rounded-md ${
-            product.inStock ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-400 cursor-not-allowed"
+       
+        {
+          state.cart.some(p=>p.id===product.id)?
+          <button onClick={(e)=>{
+            e.stopPropagation()
+            dispatch({type:'REMOVE_FROM_CART',payload:product.id})
+          }}  className='bg-red-500 text-white py-2 px-4 rounded-md'>Remove from Cart</button>
+          :<button 
+           onClick={(e)=>{
+            e.stopPropagation()
+            dispatch({type:'ADD_TO_CART',payload:product})
+          }}  className={`px-4 py-2 text-white rounded-md ${
+            product.inStock>0 ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-400 cursor-not-allowed"
           }`}
-          disabled={!product.inStock}
-        >
-          {product.inStock ? "Add to Cart" : "Out of Stock"}
-        </button>
+          disabled={!product.inStock}>{product.inStock>0?"Add to Cart":"Out of stock"}</button>
+        }
         <button onClick={() => navigate("/")} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
           Back to Products
         </button>

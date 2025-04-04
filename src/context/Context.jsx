@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { faker } from "@faker-js/faker";
 const CartContext = createContext()
+import { CartReducer, productReducer } from "./Reducers";
 
 const CartContextProvider=({children})=>{
     faker.seed(99)
@@ -15,39 +16,21 @@ const CartContextProvider=({children})=>{
             ratings: faker.helpers.arrayElement([1, 2, 3, 4, 5]), 
         }
     ))
-    // console.log(products);
-    const CartReducer=(state,action)=>{
-        switch(action.type){
-            case 'ADD_TO_CART':
-            return {...state,cart:[...state.cart,{...action.payload,qty:1}]}
-
-            case 'REMOVE_FROM_CART':
-            return {...state,cart:state.cart.filter(p=>p.id!==action.payload)}
-
-            case 'SEARCH_PRODUCT':
-                console.log('inside search product')
-                console.log(action.payload)
-                
-                return{...state,filtered:state.products.filter(p=>p.name.toLowerCase().includes(action.payload.toLowerCase()))}
-
-            case 'APPLY_FILTERS':
-                if(action.payload.ascending){
-                    filteredProducts = products.sort(product=>product.price)
-                }
-             return {...state,}
-
-
-            default:
-                return state
-        }
-    }
+  
     const [state,dispatch ]=useReducer(CartReducer,{
         products,
         cart:[],
         filtered:[]
     })
+
+    const [productState,productDispatch]=useReducer(productReducer,{
+        byStock:false,
+        byFastDelivery:false,
+        byRating:0,
+        searchQuery:''
+    })
     
-    return <CartContext.Provider value={{state,dispatch}} >
+    return <CartContext.Provider value={{state,dispatch,productState,productReducer}} >
         {children}
     </CartContext.Provider>
 }
