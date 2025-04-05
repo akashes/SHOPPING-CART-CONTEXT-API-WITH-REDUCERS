@@ -57,6 +57,9 @@ export const productReducer=(state,action)=>{
                     return {...state,byRating:action.payload}
 
                     case 'FILTER_BY_SEARCH':
+                        console.log('inside ...............')
+                        console.log('updating',action.payload)
+                        console.log(action.payload)
                         return {...state,searchQuery:action.payload}
 
                         case 'CLEAR_FILTERS':

@@ -11,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 const Header = () => {
   const navigate = useNavigate()
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const{state,dispatch}=useCart()
+  const{state,productState:{searchQuery},productDispatch,dispatch}=useCart()
 
   return (
     <nav className="flex flex-col bg-slate-700 gap-3 sm:flex-row justify-between mb-1 items-center min-h-[10vh] px-6 sm:px-[50px] py-2 shadow-lg">
@@ -25,7 +25,14 @@ const Header = () => {
         {/* Search Bar with Icon */}
         <div className="relative w-full max-w-[300px]">
           <input
-          onChange={(e)=>dispatch({type:'SEARCH_PRODUCT',payload:e.target.value})}
+
+          onChange={(e)=>{
+            productDispatch({
+              type:'FILTER_BY_SEARCH',
+              payload:e.target.value
+            })
+          }}
+          value={searchQuery}
             type="text"
             placeholder="Search a product..."
             className="text-gray-500 w-full focus:outline-none bg-white pl-10 pr-4 py-2 rounded-md shadow-sm"
@@ -69,10 +76,12 @@ const Header = () => {
 
                  )
                }
-                <li onClick={()=>{
+               {
+              state.cart.length>0 &&  <li onClick={()=>{
                   setDropdownOpen(false)
                   navigate('/cart')
                 }} className="px-4 py-2 hover:bg-gray-200 cursor-pointer">GO TO THE CART</li>
+               }
               </ul>
             </div>
           )}

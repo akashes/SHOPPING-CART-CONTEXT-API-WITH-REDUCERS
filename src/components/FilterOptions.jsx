@@ -7,39 +7,39 @@ const FilterOptions = (
     // { open,filters,setFilters }
 ) => {
     // const{state,dispatch} = useCart()
-    const {productState,productDispatch}=useCart()
-    console.log(productState)
-     const [filters, setFilters] = useState(
-        {
-              sort: "",
-              inStock: false,
-              fastDelivery: false,
-              rating: 0,
-            }
-        );
+    const {productState:{byStock,byFastDelivery,byRating,searchQuery,sort},productDispatch}=useCart()
+    console.log(byStock,byFastDelivery,sort,byRating,searchQuery)
+    //  const [filters, setFilters] = useState(
+    //     {
+    //           sort: "",
+    //           inStock: false,
+    //           fastDelivery: false,
+    //           rating: 0,
+    //         }
+    //     );
 
  
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newFilters = {
-      ...filters,
-      [name]: type === "checkbox" ? checked : value,
-    };
-    setFilters(newFilters);
+//   const handleChange = (e) => {
+//     const { name, value, type, checked } = e.target;
+//     const newFilters = {
+//       ...filters,
+//       [name]: type === "checkbox" ? checked : value,
+//     };
+//     setFilters(newFilters);
   
 
-  };
-  useEffect(()=>{
-      dispatch({
-        type:'APPLY_FILTERS',
-        payload:filters
+//   };
+//   useEffect(()=>{
+//       dispatch({
+//         type:'APPLY_FILTERS',
+//         payload:filters
 
-    },)
+//     },)
 
 
-  },[filters])
-console.log(filters)
+//   },[filters])
+// console.log(filters)
   return (
     <>
     {
@@ -53,8 +53,13 @@ console.log(filters)
               type="radio"
               name="sort"
               value="asc"
-              checked={filters.sort === "asc"}
-              onChange={handleChange}
+              checked={sort==='lowToHigh'?true:false}
+              onChange={()=>{
+                productDispatch({
+                    type:'SORT_BY_PRICE',
+                    payload:'lowToHigh'
+                })
+              }}
             />
             <span>Ascending</span>
           </label>
@@ -63,8 +68,13 @@ console.log(filters)
               type="radio"
               name="sort"
               value="desc"
-              checked={filters.sort === "desc"}
-              onChange={handleChange}
+              checked={sort==='highToLow'?true:false}
+              onChange={()=>{
+                productDispatch({
+                    type:'SORT_BY_PRICE',
+                    payload:'highToLow'
+                })
+              }}
             />
             <span>Descending</span>
           </label>
@@ -74,27 +84,35 @@ console.log(filters)
           <input
             type="checkbox"
             name="inStock"
-            checked={filters.inStock}
-            onChange={handleChange}
+            checked={byStock.inStock}
+            onChange={()=>{
+                productDispatch({
+                    type:'FILTER_BY_STOCK',
+                })
+            }}
           />
-          <span>In Stock</span>
+          <span>Include out of  Stock</span>
         </label>
 
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
             name="fastDelivery"
-            checked={filters.fastDelivery}
-            onChange={handleChange}
+            checked={byFastDelivery}
+            onChange={()=>{
+                productDispatch({
+                    type:'FILTER_BY_DELIVERY',
+                })
+            }}
           />
           <span>Fast Delivery Only</span>
         </label>
-        <Rating filters={filters} setFilters={setFilters}/>
-        <button onClick={()=>setFilters({
-    sort: "",
-    outOfStock: false,
-    fastDelivery: false,
-  })} type="button" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+        <Rating />
+        <button onClick={()=>{
+            productDispatch({
+                type:'CLEAR_FILTERS',
+            })
+        }} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
             Clear Filters
         </button>
       </form>

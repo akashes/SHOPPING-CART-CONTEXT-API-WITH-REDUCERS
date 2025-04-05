@@ -30,7 +30,7 @@ const CartContextProvider=({children})=>{
         searchQuery:''
     })
     
-    return <CartContext.Provider value={{state,dispatch,productState,productReducer}} >
+    return <CartContext.Provider value={{state,dispatch,productState,productDispatch}} >
         {children}
     </CartContext.Provider>
 }

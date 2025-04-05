@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
 import { GoStarFill,GoStar } from "react-icons/go";
+import { useCart } from '../context/Context';
 
-const Rating = ({filters,setFilters}) => {
-   const[rate,setRate]= useState(5)
+const Rating = () => {
+    const {productState:{byRating},productDispatch}=useCart()
    const updateRating=(rating)=>{
-    setFilters((prevFilter)=>{
-        return {
-            ...prevFilter,
-            rating
-        }
+    productDispatch({
+        type:'FILTER_BY_RATING',
+        payload:rating
     })
+
+
+    // setFilters((prevFilter)=>{
+    //     return {
+    //         ...prevFilter,
+    //         rating
+    //     }
+    // })
    }
    const RatingComponent = ()=>{
     const totalStart = 5
@@ -22,7 +29,7 @@ const Rating = ({filters,setFilters}) => {
 {[...Array(totalStart)].map((_,index)=>{
                 return(
                     <>
-                    {index < filters.rating ? (
+                    {index < byRating ? (
                         <GoStarFill key={index} className="text-yellow-500" onClick={()=>updateRating(index+1)}/>
                     ) : (
                         <GoStar key={index} className="text-gray-400" onClick={()=>updateRating(index+1)}/>
