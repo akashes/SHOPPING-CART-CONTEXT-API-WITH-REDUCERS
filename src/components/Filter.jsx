@@ -42,14 +42,13 @@ import FilterOptions from './FilterOptions'
 const menuItems=[
     { name: 'Home', icon: <IoHomeOutline size={20} />, link: '/' },
     { name: 'Cart', icon: <RiShoppingCart2Fill size={20} />, link: '/cart' },
-    // {name:'Filter',icon:<FaFilter size={20}/>,link:'/filter'},
 
 ]
 
-const Filter = ({filters,setFilters}) => {
+const Filter = () => {
 
 
-    const[open,setOpen]=useState(true)
+    const[open,setOpen]=useState(false)
   return (
 
 
@@ -89,7 +88,7 @@ const Filter = ({filters,setFilters}) => {
                     Filter
                 </p>
             </div>
-            <FilterOptions filters={filters} setFilters={setFilters} open={open} />
+            <FilterOptions  open={open} />
             
 
 </div>

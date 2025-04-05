@@ -3,7 +3,6 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import Badge from "./Badge";
 import { IoSearch } from "react-icons/io5";
-import ThemeBtn from "./ThemeBtn";
 import { useCart } from "../context/Context";
 import { MdDelete } from "react-icons/md";
 
@@ -66,8 +65,10 @@ const Header = () => {
                         </div>
                         <MdDelete className=" text-xl text-red-500 cursor-pointer" onClick={(e)=>{
                           e.stopPropagation()
-                          setDropdownOpen(false)
                           dispatch({type:'REMOVE_FROM_CART',payload:i.id})
+                          if(state.cart.length===1){
+                            setDropdownOpen(false)
+                          }
                         }} />
                       </div>
                     ))

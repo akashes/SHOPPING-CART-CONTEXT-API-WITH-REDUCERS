@@ -18,27 +18,7 @@ const {state,dispatch} = useCart()
         }
 
     },[id])
-//     const product = {
-//         fastDelivery: true,
-// id
-// : 
-// "2c0a8901-7972-4eae-a8de-ebe2a5d4bd78",
-// image
-// : 
-// "https://picsum.photos/seed/kU0T3/3635/354?grayscale&blur=3",
-// inStock
-// : 
-// 3,
-// name
-// : 
-// "Modern Ceramic Pizza",
-// price
-// : 
-// "85.79",
-// ratings
-// : 
-// 5
-//     }
+
 console.log(state)
 console.log(product)
   return (
@@ -57,7 +37,6 @@ console.log(product)
                       })
                     }
                   </div>
-      {/* <p className="mt-4 text-gray-600">{product.description}</p> */}
 
       <div className="mt-6 flex space-x-4">
        

@@ -8,7 +8,6 @@ import Cart from './pages/Cart'
 import ProductDetails from './pages/ProductDetails'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -16,11 +15,9 @@ function App() {
    <Routes>
     <Route path="/" element={<Home />} />
 
-    <Route path='/' element={<Cart/>} />
     <Route path='/product/:id' element={<ProductDetails/>} />
     <Route path='/cart' element={<Cart/>} />
-     {/* <Route path="/about" element={<About />} />
-    <Route path="/contact" element={<Contact />} /> */}
+
 
 
    </Routes>

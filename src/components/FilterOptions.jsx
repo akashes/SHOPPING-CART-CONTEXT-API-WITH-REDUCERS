@@ -4,42 +4,17 @@ import Rating from "./Rating";
 import { useCart } from "../context/Context";
 
 const FilterOptions = (
-    // { open,filters,setFilters }
+    { open }
 ) => {
-    // const{state,dispatch} = useCart()
     const {productState:{byStock,byFastDelivery,byRating,searchQuery,sort},productDispatch}=useCart()
     console.log(byStock,byFastDelivery,sort,byRating,searchQuery)
-    //  const [filters, setFilters] = useState(
-    //     {
-    //           sort: "",
-    //           inStock: false,
-    //           fastDelivery: false,
-    //           rating: 0,
-    //         }
-    //     );
 
  
 
-//   const handleChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     const newFilters = {
-//       ...filters,
-//       [name]: type === "checkbox" ? checked : value,
-//     };
-//     setFilters(newFilters);
-  
-
-//   };
-//   useEffect(()=>{
-//       dispatch({
-//         type:'APPLY_FILTERS',
-//         payload:filters
-
-//     },)
 
 
-//   },[filters])
-// console.log(filters)
+
+
   return (
     <>
     {
@@ -84,7 +59,7 @@ const FilterOptions = (
           <input
             type="checkbox"
             name="inStock"
-            checked={byStock.inStock}
+            checked={byStock}
             onChange={()=>{
                 productDispatch({
                     type:'FILTER_BY_STOCK',
@@ -108,7 +83,7 @@ const FilterOptions = (
           <span>Fast Delivery Only</span>
         </label>
         <Rating />
-        <button onClick={()=>{
+        <button type="button" onClick={()=>{
             productDispatch({
                 type:'CLEAR_FILTERS',
             })

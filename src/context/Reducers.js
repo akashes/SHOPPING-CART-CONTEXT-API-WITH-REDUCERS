@@ -12,27 +12,26 @@ export   const CartReducer=(state,action)=>{
             return {...state,cart:state.cart.map(p=>p.id===action.payload.id?{...p,qty:action.payload.qty}:p)}
            
 
-        case 'SEARCH_PRODUCT':
-            console.log('inside search product')
-            console.log(action.payload)
-            const searchSource = state.filtered.length>0 ? state.filtered : state.products
-            const searchedResults = searchSource.filter(p=>p.name.toLowerCase().includes(action.payload.toLowerCase()))
+        // case 'SEARCH_PRODUCT':
+        //     console.log(action.payload)
+        //     const searchSource = state.filtered.length>0 ? state.filtered : state.products
+        //     const searchedResults = searchSource.filter(p=>p.name.toLowerCase().includes(action.payload.toLowerCase()))
 
-            return {
-                ...state,
-                filtered: searchedResults.length > 0 ? searchedResults : state.filtered, 
-                searchNotFound: searchedResults.length === 0, // Flag for empty search
-            };
-        case 'APPLY_FILTERS':
-              let  filteredProducts = state.products.filter(p=>action.payload.inStock?p.inStock>0 : true)
-                .filter(p=>action.payload.fastDelivery?p.fastDelivery:true)
-                .filter(p=>action.payload.rating?p.ratings>=action.payload.rating:true)
-                .sort((a,b)=>(action.payload.sort==="asc"?a.price-b.price:action.payload.sort==="desc"?b.price-a.price:0))
+        //     return {
+        //         ...state,
+        //         filtered: searchedResults.length > 0 ? searchedResults : state.filtered, 
+        //         searchNotFound: searchedResults.length === 0, // Flag for empty search
+        //     };
+        // case 'APPLY_FILTERS':
+        //       let  filteredProducts = state.products.filter(p=>action.payload.inStock?p.inStock>0 : true)
+        //         .filter(p=>action.payload.fastDelivery?p.fastDelivery:true)
+        //         .filter(p=>action.payload.rating?p.ratings>=action.payload.rating:true)
+        //         .sort((a,b)=>(action.payload.sort==="asc"?a.price-b.price:action.payload.sort==="desc"?b.price-a.price:0))
             
-         return {...state,filtered:filteredProducts}
+        //  return {...state,filtered:filteredProducts}
 
-        case 'CLEAR_FILTERS':
-            return {...state,filtered:[]}
+        // case 'CLEAR_FILTERS':
+        //     return {...state,filtered:[]}
 
 
         default:
@@ -57,9 +56,7 @@ export const productReducer=(state,action)=>{
                     return {...state,byRating:action.payload}
 
                     case 'FILTER_BY_SEARCH':
-                        console.log('inside ...............')
-                        console.log('updating',action.payload)
-                        console.log(action.payload)
+                   
                         return {...state,searchQuery:action.payload}
 
                         case 'CLEAR_FILTERS':

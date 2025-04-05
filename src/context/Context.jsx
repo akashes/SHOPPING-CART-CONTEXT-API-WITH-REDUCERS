@@ -20,7 +20,7 @@ const CartContextProvider=({children})=>{
     const [state,dispatch ]=useReducer(CartReducer,{
         products,
         cart:[],
-        filtered:[]
+        // filtered:[]
     })
 
     const [productState,productDispatch]=useReducer(productReducer,{
