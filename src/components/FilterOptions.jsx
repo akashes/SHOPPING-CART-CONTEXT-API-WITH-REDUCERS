@@ -20,7 +20,7 @@ const FilterOptions = (
     {
         open && (
             <div className={`transition-all duration-1000 p-4 border rounded-lg shadow-md max-w-sm `}>
-      <form className="space-y-3">
+      <form className="space-y-3 flex flex-wrap gap-7 md:block ">
         <fieldset>
           <legend className="font-medium">Sort By:</legend>
           <label className="flex items-center space-x-2">

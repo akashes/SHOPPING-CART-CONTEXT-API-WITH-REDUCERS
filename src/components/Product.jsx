@@ -6,7 +6,7 @@ const Product = ({product}) => {
   const navigate = useNavigate()
   const{state,dispatch}=useCart()
   return (
-<div onClick={()=>navigate(`/product/${product.id}`)} key={product.id} className='w-[200px]  md:w-[300px]   bg-white m-2 md:m-4 p-2 md:p-4 rounded-md shadow-md flex flex-col justify-between gap-1 md:gap-2'>
+<div onClick={()=>navigate(`/product/${product.id}`)} key={product.id} className=' w-[50%]  md:w-[300px]   bg-white m-2 md:m-4 p-2 md:p-4 rounded-md shadow-md flex flex-col justify-between gap-1 md:gap-2'>
         <img src={product.image} alt={product.name} className='w-full h-40 object-cover rounded-md' />
         <h2 className='text-md md:text-xl font-bold'>{product.name}</h2>
         <p className='text-gray-600'>Price: ${product.price}</p>

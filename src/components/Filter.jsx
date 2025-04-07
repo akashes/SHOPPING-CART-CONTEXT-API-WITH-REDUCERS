@@ -52,12 +52,12 @@ const Filter = () => {
   return (
 
 
-    <nav className={`h-30vh shadow-md sm:h-screen p-2 flex flex-col duration-500 bg-teal-600 text-white ${open ? 'w-[100vw]  sm:w-60 ':'w-16'}  `}>
+    <nav className={`h-30vh shadow-md sm:h-screen  flex flex-col duration-500 bg-teal-600 text-white ${open ? 'w-[90vw] m-3 rounded-xl p-1  sm:w-60 sm:m-0 sm:rounded-none ':'w-10  sm:w-16 rounded-lg m-3 sm:m-0 sm:rounded-none p-1 sm:p-0'}  `}>
 {/* header */}
 
 
-<div className='flex items-center  p-2'>
-    <AiOutlineMenu  className={`text-xl sm:text-3xl  duration-500 cursor-pointer ${open && 'rotate-180'}`} onClick={()=>setOpen(!open)}/>
+<div className='flex  items-center  p-2'>
+    <AiOutlineMenu  className={`text-sm sm:text-3xl  duration-500 cursor-pointer ${open && 'rotate-180'}`} onClick={()=>setOpen(!open)}/>
 </div>
 
 {/* body */}
@@ -69,7 +69,7 @@ const Filter = () => {
                 <Link to={item.link} >
                 <div>{item.icon}</div>
                 </Link>
-                <p className={`${!open && 'translate-x-24 w-5'} duration-500 overflow-hidden`}>{item.name}</p>
+                <p className={`${!open && 'translate-x-24 w-5 hidden'} duration-500 overflow-hidden`}>{item.name}</p>
 
                 <p className={`${open && 'hidden'} absolute left-32 shadow-md rounded-md w-0 p-0 text-black bg-white duration-100 overflow-hidden group-hover:w-fit group-hover:p-2 `}>
                     {item.name}
@@ -80,15 +80,18 @@ const Filter = () => {
     }
 </ul>
 <hr />
-<div className='px-3 py-2 my-2 hover:bg-blue-800 rounded-md duration-500 cursor-pointer flex gap-2 items-center relative group'>
-                <div onClick={()=>setOpen(!open)}><FaFilter className='text-md sm:text-2xl' /></div>
+<div  onClick={()=>setOpen(!open)} className=' px-1 sm:px-3 py-1  sm:py-2 my-0 sm:my-2 hover:bg-blue-800 rounded-md duration-500 cursor-pointer flex gap-2  items-center relative group'>
+                <div  ><FaFilter className='text-md sm:text-2xl ' /></div>
                 <p className={`${!open && 'translate-x-24 w-5'} duration-500 overflow-hidden`}>Filter</p>
 
                 <p className={`${open && 'hidden'} absolute left-32 shadow-md rounded-md w-0 p-0 text-black bg-white duration-100 overflow-hidden group-hover:w-fit group-hover:p-2 `}>
                     Filter
                 </p>
             </div>
+            <div className='flex justify-center items-center'>
             <FilterOptions  open={open} />
+            </div>
+                
             
 
 </div>
